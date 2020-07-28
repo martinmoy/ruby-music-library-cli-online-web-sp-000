@@ -7,7 +7,6 @@ class MusicLibraryController
   end
 
   def call
-    input = ''
     input = gets.strip
 
     while input != exit
@@ -20,8 +19,6 @@ class MusicLibraryController
     puts "To play a song, enter 'play song'."
     puts "To quit, type 'exit'."
     puts "What would you like to do?"
-
-
 
     case
       input
@@ -38,7 +35,7 @@ class MusicLibraryController
          when "play song"
            play_song
          end
-     end
+      end
   end
 
   def list_songs
@@ -48,23 +45,26 @@ class MusicLibraryController
   end
 
   def list_artists
-    artists = Artist.all.sort {|a,b| a.name <=> b.name}
-    artists.each.with_index(1) {|artist, i| puts "#{i}. #{artist.name}"}
+    Artist.all.sort{|a, b| a.name <=> b.name}.each_with_index do |a, i|
+      puts "#{i+1}. #{a.name}"
+    end
   end
 
   def list_genres
-    genres = Genre.all.sort {|a,b| a.name <=> b.name}
-    genres.each.with_index(1) {|genre, i| puts "#{i}. #{genre.name}"}
+    Genre.all.sort{|a, b| a.name <=> b.name}.each_with_index do |g, i|
+      puts "#{i+1}. #{g.name}"
+    end
   end
+
 
   def list_songs_by_artist
     puts "Please enter the name of an artist:"
     input = gets.strip
 
     if artist = Artist.find_by_name(input)
-      artist.songs.sort { |a,b| a.name <=> b.name }.each.with_index(1) do |song, i|
+        artist.songs.sort { |a,b| a.name <=> b.name }.each.with_index(1) do |song, i|
         puts "#{i}. #{song.name} - #{song.genre.name}"
-      end
+        end
     end
   end
 
@@ -77,16 +77,18 @@ class MusicLibraryController
         puts "#{i}. #{song.artist.name} - #{song.name}"
       end
     end
+  end
+    
 
-    def play_song
-      puts "Which song number would you like to play?"
-      input = gets.strip.to_i
-      if input > 0 && input <= Song.all.length
-        array = Song.all.sort{|a, b| a.name <=> b.name}
-        song = array[input-1]
-        puts "Playing #{song.name} by #{song.artist.name}"
-      end
+  def play_song
+    puts "Which song number would you like to play?"
+    input = gets.strip.to_i
+    if input > 0 && input <= Song.all.length
+      array = Song.all.sort{|a, b| a.name <=> b.name}
+      song = array[input-1]
+      puts "Playing #{song.name} by #{song.artist.name}"
     end
+  end
 
 
 
