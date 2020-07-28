@@ -20,8 +20,6 @@ class MusicLibraryController
     input = gets.strip
     if input != exit
 
-
-
     case
       input
          when "list songs"
@@ -38,32 +36,8 @@ class MusicLibraryController
            play_song
          end
      end
-
-
-
   end
 
-  def list_songs
-
-  end
-
-  def list_artists
-
-  end
-
-  def list_genre
-
-  end
-
-  def list_songs_by_artist
-
-  end
-
-  def list_songs_by_genre
-
-  end
-
-  def play_songs
-  end
+  
 
 end
